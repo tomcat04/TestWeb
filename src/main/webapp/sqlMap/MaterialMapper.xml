@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wms.core.mapper.MaterialMapper">
+
+  <cache />
+  
+  <select id="selectList" resultType="Material">
+    SELECT
+		t.MATERIAL_ID materialId,
+		t.MATERIAL_DESC materialDesc
+	FROM
+		wms_material_basic t
+	WHERE
+		t.MATERIAL_ID='10288330-00'
+  </select>
+  <select id="selectAll" resultType="Material">
+    SELECT
+		t.MATERIAL_ID materialId,
+		t.MATERIAL_DESC materialDesc
+	FROM
+		wms_material_basic t
+  </select>
+  <insert id="insertMaterial" parameterType="Material">
+    INSERT INTO wms_material_basic (material_id, material_desc)
+		VALUES
+	(#{materialId}, #{materialDesc});
+  </insert>
+  <select id="selectOne" parameterType="String" resultType="Material">
+    SELECT
+		t.MATERIAL_ID materialId,
+		t.MATERIAL_DESC materialDesc
+	FROM
+		wms_material_basic t
+	WHERE t.MATERIAL_ID = #{materialId}
+  </select>
+  <select id="selectListFromList" resultType="Material">
+    SELECT
+		t.MATERIAL_ID materialId,
+		t.MATERIAL_DESC materialDesc
+	FROM
+		wms_material_basic t
+		where
+		<if test="list.size() > 0">
+			t.MATERIAL_ID IN
+			<foreach collection="list" open="(" separator="," close=")" item="materialId" index="index">
+				${materialId}
+			</foreach>
+		</if>
+  </select>
+</mapper>
