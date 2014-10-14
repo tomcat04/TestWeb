@@ -1,5 +1,7 @@
-package com.opera.wms.basic.actions;
+package com.wms.forward.controller;
 
+import com.wms.ma.bean.MaterialSrcBean;
+import com.wms.ma.service.MaterialSrcManageService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,23 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("materials")
-public class FarwordAction {
+public class FarwordController {
 
-//	@Resource
-//	private MaterialService materialService;
+	@Resource
+	private MaterialSrcManageService materialSrcManageService;
 	
 	@RequestMapping(value={"/","/list"},method=RequestMethod.GET)
-	public ModelAndView Test(){
-		List<String> list = new ArrayList<>();
-		list.add("10003579-00");
-		list.add("10017370-00");
-		list.add("10017437-00");
-		list.add("10027552-00");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("material/materialList");
-                mav.addObject("s",list.size());
-		return mav;
-	}
+        public ModelAndView Test() {
+            MaterialSrcBean msb = materialSrcManageService.querySingleMaterial("123");
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("material/materialList");
+            mav.addObject("s", msb.getMaterialDesc());
+            return mav;
+        }
 	@RequestMapping(value = "t")
 	public String Test2(){
 		return "welcome";

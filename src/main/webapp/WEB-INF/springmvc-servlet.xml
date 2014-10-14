@@ -12,21 +12,18 @@
             http://www.springframework.org/schema/mvc  
             http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd  ">
     <!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
-    <context:component-scan base-package="com.opera.wms.basic.actions" />
+    <context:component-scan base-package="com.wms.forward.controller" />
     <!-- 添加注解驱动 -->  
     <mvc:annotation-driven />  
     <!-- 对静态资源文件的访问 -->
     <mvc:resources mapping="/static/**" location="/static/" />
     
-<!--    <mvc:resources   mapping="/javascript/**" location="/static_resources/javascript/"/>    
-    <mvc:resources   mapping="/styles/**" location="/static_resources/css/"/>    
-    <mvc:resources   mapping="/images/**" location="/static_resources/images/"/>    -->
     <mvc:default-servlet-handler   />
     
     <!--  一般的视图配置 -->
     <!-- 定义跳转的文件的前后缀 -->  
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
-        <property name="prefix" value="/views/" />  
+        <property name="prefix" value="/WEB-INF/views/" />  
         <property name="suffix" value=".jsp" />  
         <property name="order" value="1" />
     </bean>
