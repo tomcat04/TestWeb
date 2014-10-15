@@ -61,12 +61,8 @@ public class MaterialSrcManageServiceImplTest {
     public void testQuerySingleMaterial() {
         System.out.println("querySingleMaterial");
         String materialCode = "";
-        MaterialSrcManageServiceImpl instance = new MaterialSrcManageServiceImpl();
         MaterialSrcBean expResult = null;
-        MaterialSrcBean result = instance.querySingleMaterial(materialCode);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MaterialSrcBean result = materialSrcManageService.querySingleMaterial(materialCode);
     }
     
 }

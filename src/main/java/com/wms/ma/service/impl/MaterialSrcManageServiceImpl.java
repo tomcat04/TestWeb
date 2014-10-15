@@ -7,7 +7,10 @@
 package com.wms.ma.service.impl;
 
 import com.wms.ma.bean.MaterialSrcBean;
+import com.wms.ma.mapper.MaterialSrcMapper;
 import com.wms.ma.service.MaterialSrcManageService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,11 +23,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MaterialSrcManageServiceImpl implements MaterialSrcManageService{
 
+    @Autowired
+    private MaterialSrcMapper materialSrcMapper;
+    
     @Override
     public MaterialSrcBean querySingleMaterial(String materialCode) {
         MaterialSrcBean msb = new MaterialSrcBean();
         msb.setMaterialCode("123444-00");
         msb.setMaterialDesc("hei,我是一个物料描述");
+        List<MaterialSrcBean> list = materialSrcMapper.selectAll();
+        System.out.println("-----------------------list " + list.size());
         return msb;
     }
 

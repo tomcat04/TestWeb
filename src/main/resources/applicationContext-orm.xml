@@ -28,9 +28,28 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:annotation-config />  
-    <!--扫描包，注册为Bean,多个包则在“”内以，分隔-->
-    <context:component-scan base-package="com.wms.ma.service" />
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="com.wms.ma.bean" />
+        <property name="mapperLocations" value="com.wms.ma.mapper.*,eee.*"></property>
+        <!--<property name="configLocation" value="mybatis-config.xml" />-->
+    </bean>
     
-    <import resource="classpath:applicationContext-orm.xml" />
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.wms.ma.mapper" />
+    </bean>
+    
+    <context:property-placeholder location="classpath:mysql-jdbc.properties"/>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+    </bean>
+
+    <!-- transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 </beans>
