@@ -1,7 +1,5 @@
 package com.opera.wms.basic.actions;
 
-import com.wms.core.domain.Material;
-import com.wms.core.service.MaterialService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("materials")
 public class FarwordAction {
 
-	@Resource
-	private MaterialService materialService;
+//	@Resource
+//	private MaterialService materialService;
 	
 	@RequestMapping(value={"/","/list"},method=RequestMethod.GET)
 	public ModelAndView Test(){
@@ -31,43 +29,27 @@ public class FarwordAction {
 		list.add("10017370-00");
 		list.add("10017437-00");
 		list.add("10027552-00");
-		List<Material> materials = materialService.selectListFromList(list);
-		System.out.println(materials.size());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("material/materialList");
-		mav.addObject("materials", materials);
+                mav.addObject("s",list.size());
 		return mav;
 	}
 	@RequestMapping(value = "t")
 	public String Test2(){
-		List<Material> materials = materialService.selectMaterials();
-		System.out.println(materials.size());
 		return "welcome";
 	}
 	@RequestMapping("all")
 	public String Test3(){
-		Material material= materialService.selectAll();
-		System.out.println("------------- " + material.getMaterialDesc());
 		return "welcome";
 	}
 	@RequestMapping("insert")
 	public String Test4(){
-		Material material= new Material();
-		material.setMaterialDesc("1111111");
-		material.setMaterialId("22222");
-		materialService.insert(material);
 		return "welcome";
 	}
 	//ParamRequestΪurl?xxx=1111 GET��ʽ
 	@RequestMapping(value= "/{materialId}",method=RequestMethod.GET)
 	public String Test5(@PathVariable("materialId") String materialId,Model	model){
-		Material material = materialService.selectOne(materialId);
-                if(material == null){
-                    return "error/404";
-                }else{   
-                    model.addAttribute("material", material);
-                    return "material/materialDetail";
-                }
+                return "material/materialDetail";
 	}
 	@ResponseBody	
 	@RequestMapping(value={"ajax"},method=RequestMethod.DELETE)
@@ -78,10 +60,7 @@ public class FarwordAction {
 		list.add("10017437-00");
 		list.add("10027552-00");
 		list.add("10024634-00");
-		List<Material> materials = materialService.selectListFromList(list);
 		Map<String, Object> map = new HashMap<>();
-		map.put("count", materials.size());
-		map.put("materials", materials);
                 JSONObject res = JSONObject.fromObject(map);
 		return res;
 	}

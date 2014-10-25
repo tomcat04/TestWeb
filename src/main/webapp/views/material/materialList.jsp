@@ -5,12 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insert title here1</title>
-        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/theme/ext-theme-crisp-all.css">
-        <!--<script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/5.0.0/build/ext-all.js"></script>-->
-        <script type="text/javascript" src="<%=request.getContextPath()%>/static/extjs/bootstrap.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/static/app.js"></script>
+        <title>Insert title here1666</title>
     </head>
     <body>
+        <h1>hello world</h1>
+        ${s}
     </body>
 </html>
