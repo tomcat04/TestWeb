@@ -6,8 +6,12 @@
 
 package com.wms.forward.controller;
 
+//import com.wms.core.domain.Material;
+//import com.wms.core.service.MaterialService;
 import com.wms.ma.bean.MaterialSrcBean;
 import com.wms.ma.service.MaterialSrcManageService;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +31,11 @@ public class NewClass {
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public ModelAndView Test() {
+        List<String> list = new ArrayList<>();
+        list.add("10003579-00");
+        list.add("10017370-00");
+        list.add("10017437-00");
+        list.add("10027552-00");
         MaterialSrcBean msb = materialSrcManageService.querySingleMaterial("123");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("material/materialList");
