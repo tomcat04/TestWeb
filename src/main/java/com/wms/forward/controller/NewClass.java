@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +38,15 @@ public class NewClass {
         list.add("10017437-00");
         list.add("10027552-00");
         MaterialSrcBean msb = materialSrcManageService.querySingleMaterial("123");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("material/materialList");
+        mav.addObject("s", msb.getMaterialDesc());
+        return mav;
+    }
+    
+    @RequestMapping(value = {"/material/{materialCode}"}, method = RequestMethod.GET)
+    public ModelAndView Material(@PathVariable String materialCode) {
+        MaterialSrcBean msb = materialSrcManageService.getMaterial(materialCode);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("material/materialList");
         mav.addObject("s", msb.getMaterialDesc());
