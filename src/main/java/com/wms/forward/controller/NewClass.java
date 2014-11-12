@@ -52,4 +52,10 @@ public class NewClass {
         mav.addObject("s", msb.getMaterialDesc());
         return mav;
     }
+    
+    @RequestMapping(value = {"/m/{materialCode}"}, method = RequestMethod.GET)
+    public String Material2(@PathVariable String materialCode) {
+//        return "redirect:/material/" + materialCode;//地址发生变化--重定向
+        return "forward:/material/" + materialCode;//地址无变化--跳转
+    }
 }
