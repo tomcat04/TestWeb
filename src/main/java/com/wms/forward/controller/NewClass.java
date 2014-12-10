@@ -10,8 +10,11 @@ package com.wms.forward.controller;
 //import com.wms.core.service.MaterialService;
 import com.wms.ma.bean.MaterialSrcBean;
 import com.wms.ma.service.MaterialSrcManageService;
+import com.wms.util.exception.CustomException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,10 +49,16 @@ public class NewClass {
     
     @RequestMapping(value = {"/material/{materialCode}"}, method = RequestMethod.GET)
     public ModelAndView Material(@PathVariable String materialCode) {
-        MaterialSrcBean msb = materialSrcManageService.getMaterial(materialCode);
+        MaterialSrcBean msb = null;
+        try {
+            msb = materialSrcManageService.getMaterial(materialCode);
+        } catch (CustomException ex) {
+            Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ModelAndView mav = new ModelAndView();
         mav.setViewName("material/materialList");
-        mav.addObject("s", msb.getMaterialDesc());
+        if(msb != null)//异步之后返回值为null
+            mav.addObject("s", msb.getMaterialDesc());
         return mav;
     }
     
